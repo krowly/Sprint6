@@ -11,14 +11,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class FelineTest
 {
     @Spy
-    private Feline feline = new Feline();
+    private final Feline feline = new Feline();
     @Test
-    public void FelineTest1() throws Exception {
+    public void felineEatMeatTest() throws Exception {
         feline.eatMeat();
-        feline.getKittens();
-        feline.getFamily();
         Mockito.verify(feline).eatMeat();
+    }
+    @Test
+    public void felineGetKittensTest() throws Exception {
+        feline.getKittens();
         Mockito.verify(feline).getKittens();
+    }
+    @Test
+    public void felineGetFamilyTest() throws Exception {
+        feline.getFamily();
         Mockito.verify(feline).getFamily();
     }
 }

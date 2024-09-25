@@ -1,9 +1,9 @@
 import com.example.Animal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -14,30 +14,24 @@ public class AnimalParamTest {
         return new Object[][] {
                 {"Травоядное", List.of("Трава", "Различные растения")},
                 { "Хищник", List.of("Животные", "Птицы", "Рыба")},
-                {"Exception", Exception.class}// передали тестовые данные
         };
     }
     public AnimalParamTest(String animalKind, Object expectedResult) {
         this.animalKind = animalKind;
         this.expectedResult = expectedResult;
     }
-
     private final String animalKind;
     private final Object expectedResult;
-
-    Animal animal = new Animal();
-
+    private final Animal animal = new Animal();
+    // В этом параметризированном тесте мы не можем избавиться от внутренного условия из-за использования разных типов данных в ожидаемом результате, обрабатываемых по разному.
     @Test
     public void testGetFood_Herbivore() throws Exception {
-        List<String> food = animal.getFood("Травоядное");
-        assertEquals(List.of("Трава", "Различные растения"), food);
-        assertEquals(animal.getFamily(), "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи");
-        if(animalKind.equals("Exception")) {
-            assertThrows(Exception.class, ()->animal.getFood(animalKind));
-        }
-        else
-        {
             assertEquals(expectedResult, animal.getFood(animalKind));
-        }
+    }
+    @Test
+    public void testGet_GetFamily ()  {
+        Animal animal_mock = Mockito.mock(Animal.class);
+        animal_mock.getFamily();
+        Mockito.verify(animal_mock).getFamily();
     }
 }

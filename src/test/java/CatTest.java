@@ -11,12 +11,15 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
     @Spy
-    private Cat cat = new Cat(new Feline());
+    private final Cat cat = new Cat(new Feline());
     @Test
-    public void CatTest1() throws Exception {
+    public void catSoundTest() throws Exception {
         cat.getSound();
-        cat.getFood();
         Mockito.verify(cat).getSound();
+    }
+    @Test
+    public void catFoodTest() throws Exception {
+        cat.getFood();
         Mockito.verify(cat).getFood();
     }
 }
